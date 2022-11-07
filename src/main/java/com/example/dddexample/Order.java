@@ -6,6 +6,7 @@ import java.util.List;
  * Order는 orderNumber를 식별자로 갖는 엔티티다.
  */
 public class Order {
+    private Orderer orderer;
     private List<OrderLine> orderLineList;
     private Money totalAmounts;
     private OrderState state;
@@ -60,6 +61,13 @@ public class Order {
 
     public void completePayment() {
         ...
+    }
+
+    public void setShippingInfo(ShippingInfo newShippingInfo) {
+        if (newShippingInfo == null) {
+            throw new IllegalArgumentException();
+        }
+        this.shippingInfo = newShippingInfo;
     }
 
     @Override
