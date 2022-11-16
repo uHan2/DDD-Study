@@ -21,4 +21,12 @@ public class OrderLine {
         ...
     }
 
+    public int getPrice(){
+        ...
+    }
+
+    public int getQuantity() {
+
+    }
+
 }

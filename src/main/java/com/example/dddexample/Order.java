@@ -35,7 +35,7 @@ public class Order {
     }
 
     private void calculateTotalAmounts() {
-        int sum = orderLineList.stream().mapToInt(OrderLine::getAmounts).sum();
+        int sum = orderLineList.stream().mapToInt(ol -> ol.getPrice() * ol.getQuantity()).sum();
         this.totalAmounts = new Money(sum);
     }
 
@@ -45,7 +45,7 @@ public class Order {
 
     public void changeShippingInfo(ShippingInfo newShippingInfo) {
         verifyNotYetShipped();
-        this.shippingInfo = newShippingInfo;
+        setShippingInfo(newShippingInfo);
     }
 
     public void cancel() {
@@ -63,7 +63,7 @@ public class Order {
         ...
     }
 
-    public void setShippingInfo(ShippingInfo newShippingInfo) {
+    private void setShippingInfo(ShippingInfo newShippingInfo) {
         if (newShippingInfo == null) {
             throw new IllegalArgumentException();
         }
