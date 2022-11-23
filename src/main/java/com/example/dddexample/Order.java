@@ -1,17 +1,30 @@
 package com.example.dddexample;
 
+import javax.persistence.*;
 import java.util.List;
 
 /**
  * Order는 orderNumber를 식별자로 갖는 엔티티다.
  */
+@Entity
+@Table(name = "purchase_order")
 public class Order {
+    @Embedded
     private Orderer orderer;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "order_line", joinColumns = @JoinColumn(name = "order_number"))
+    @OrderColumn(name = "line_idx")
     private List<OrderLine> orderLineList;
+    @Column(name = "total_amounts")
     private Money totalAmounts;
+    @Column(name = "state")
+    @Enumerated(EnumType.STRING)
     private OrderState state;
+    @Embedded
     private ShippingInfo shippingInfo;
-    private OrderNo id; // 식별자
+    @EmbeddedId
+    private OrderNo number; // 식별자
 
     public OrderNo getId() {
         return id;
